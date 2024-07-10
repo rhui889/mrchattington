@@ -12,10 +12,33 @@ bot  = ChatBot('test',
     storage_adapter='chatterbot.storage.SQLStorageAdapter',
      logic_adapters=[
         'chatterbot.logic.MathematicalEvaluation',
-        'chatterbot.logic.TimeLogicAdapter'
+        'chatterbot.logic.TimeLogicAdapter',
+        'chatterbot.logic.BestMatch'
     ],
     database_uri='sqlite:///database.sqlite3'
     )
+
+
+from chatterbot.trainers import ChatterBotCorpusTrainer
+print("train")
+trainer = ChatterBotCorpusTrainer(bot)
+
+trainer.train(
+    "chatterbot.corpus.english"
+)
+
+from chatterbot.trainers import ListTrainer
+
+trainer = ListTrainer(bot)
+
+trainer.train([
+    'How are you?',
+    'I am good.',
+    'That is good to hear.',
+    'Thank you',
+    'You are welcome.',
+])
+print("chattington")
 
 while True:
     try:
